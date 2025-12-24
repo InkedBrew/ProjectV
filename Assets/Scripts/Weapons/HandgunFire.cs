@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 public class HandgunFire : MonoBehaviour
 {
 
-    [SerializeField] private AudioSource gunFire;
     [SerializeField] private AudioSource emptyGun;
     [SerializeField] GameObject handgun;
     [SerializeField] bool canFire = false;
@@ -19,7 +18,6 @@ public class HandgunFire : MonoBehaviour
     //void OnDisable() => reload.Disable();
     IEnumerator FiringGun()
     {
-        gunFire.Play();
         GlobalAmmo.handgunAmmoCount -= 1;
         handgun.GetComponent<Animator>().Play("HandgunFire");
         yield return new WaitForSeconds(0.1f);
