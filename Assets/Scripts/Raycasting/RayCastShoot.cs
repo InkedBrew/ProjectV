@@ -1,5 +1,7 @@
 using System.Collections;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class RayCastShoot : MonoBehaviour
 {
@@ -16,6 +18,7 @@ public class RayCastShoot : MonoBehaviour
     RaycastHit hit;
     private float nextFire;
     Vector3 rayOrigin;
+    Stats enemyStats;
 
     public static event System.Action<int> OnGunFire;
 
@@ -47,14 +50,28 @@ public class RayCastShoot : MonoBehaviour
     void FireRayCast()
     {
         OnGunFire?.Invoke(gunDamage);
+
         //Passes if Raycast hit an object
         if (Physics.Raycast(rayOrigin, fpsCam.transform.forward, out hit, weaponRange))
         {
+            CheckObjectHit(hit);
             laserLine.SetPosition(1, hit.point);
         }
         else
         {
             laserLine.SetPosition(1, rayOrigin + (fpsCam.transform.forward * weaponRange));
+        }
+    }
+
+    void CheckObjectHit(RaycastHit hit)
+    {
+        switch (hit.collider.gameObject.tag)
+        {
+            case "Enemy":
+                enemyStats = hit.collider.gameObject.GetComponent<Stats>();
+                enemyStats.hp--;
+                print("Enemy hit: " + enemyStats.hp +"/" + enemyStats.maxHP);
+                break;
         }
     }
 }
