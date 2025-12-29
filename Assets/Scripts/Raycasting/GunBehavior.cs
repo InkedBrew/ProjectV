@@ -3,7 +3,7 @@ using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class RayCastShoot : MonoBehaviour
+public class GunBehavior : MonoBehaviour
 {
     public int gunDamage = 1;
     public float fireRate = .25f;

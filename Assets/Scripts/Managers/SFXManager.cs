@@ -12,15 +12,16 @@ public class SFXManager : MonoBehaviour
 
     private void OnEnable()
     {
-        RayCastShoot.OnGunFire += GunFireSFX;
+        GunBehavior.OnGunFire += GunFireSFX;
     }
     private void OnDisable()
     {
-        RayCastShoot.OnGunFire -= GunFireSFX;
+        GunBehavior.OnGunFire -= GunFireSFX;
     }
 
     void GunFireSFX(int gunDamage)
     {
         gunAudio.Play();
     }
+
 }
